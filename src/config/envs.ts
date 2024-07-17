@@ -11,13 +11,13 @@ const envsSchema = joi
   .object({
     PORT: joi.number().required(),
     DATABASE_URL: joi.string().required(),
-    NATS_SERVER: joi.array().items(joi.string()).required
+    NATS_SERVERS: joi.array().items(joi.string()).required(),
   })
   .unknown(true);
 
 const { error, value } = envsSchema.validate({
   ...process.env,
-  NATS_SERVERS: process.env.NAT_SERVERS?.split(',')
+  NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
 });
 
 if (error) {
